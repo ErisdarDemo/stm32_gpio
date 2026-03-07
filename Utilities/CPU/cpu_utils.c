@@ -29,7 +29,7 @@ To use this module, the following steps should be followed :
       - #define traceTASK_SWITCHED_OUT() extern void EndIdleMonitor(void); \
                                          EndIdleMonitor()
 *******************************************************************************/
-
+#ifdef USING_CPU_UTILS
 
 /* Includes ------------------------------------------------------------------*/
 #include "cpu_utils.h"
@@ -120,3 +120,6 @@ uint16_t osGetCPUUsage (void)
 {
   return (uint16_t)osCPU_Usage;
 }
+
+#endif /* USING_CPU_UTILS */
+

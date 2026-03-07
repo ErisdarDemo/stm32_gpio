@@ -1,4 +1,6 @@
 /**
+	@open two copies of drivers?
+
   @page GPIO_EXTI GPIO EXTI example
   
   @verbatim
