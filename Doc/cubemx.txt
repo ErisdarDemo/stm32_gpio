@@ -1,0 +1,15 @@
+@brief 		STM32CubeMX Generation Procedures
+@details 	v6.17.0
+@auth 		Justin Reina
+@date 		3/15/26
+
+
+@section 	Hardware
+	**MCU:** STM32H743IIT6 (Waveshare OpenH743I-C board)
+
+@section 	Projects
+	-
+	
+@section 	GPIO_
+	1. Access to Example Selector
+	1. Part #: STM32H743ZIT6 (closest in family for in pinout and package type)
