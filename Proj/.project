@@ -66,29 +66,54 @@
 			<locationURI>PARENT-1-PROJECT_LOC/main.h</locationURI>
 		</link>
 		<link>
-			<name>App/EXTI Demo</name>
-			<type>2</type>
-			<locationURI>virtual:/virtual</locationURI>
+			<name>App/demo_exti.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/App/demo_exti.c</locationURI>
 		</link>
 		<link>
-			<name>App/Other Demo</name>
-			<type>2</type>
-			<locationURI>virtual:/virtual</locationURI>
+			<name>App/demo_exti.h</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/App/demo_exti.h</locationURI>
 		</link>
 		<link>
-			<name>App/PWM Demo</name>
-			<type>2</type>
-			<locationURI>virtual:/virtual</locationURI>
+			<name>App/demo_other.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/App/demo_other.c</locationURI>
 		</link>
 		<link>
-			<name>App/Toggle Demo</name>
-			<type>2</type>
-			<locationURI>virtual:/virtual</locationURI>
+			<name>App/demo_other.h</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/App/demo_other.h</locationURI>
 		</link>
 		<link>
-			<name>App/Waveshare Demo</name>
-			<type>2</type>
-			<locationURI>virtual:/virtual</locationURI>
+			<name>App/demo_pwm.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/App/demo_pwm.c</locationURI>
+		</link>
+		<link>
+			<name>App/demo_pwm.h</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/App/demo_pwm.h</locationURI>
+		</link>
+		<link>
+			<name>App/demo_toggle.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/App/demo_toggle.c</locationURI>
+		</link>
+		<link>
+			<name>App/demo_toggle.h</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/App/demo_toggle.h</locationURI>
+		</link>
+		<link>
+			<name>App/demo_waveshare.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/App/demo_waveshare.c</locationURI>
+		</link>
+		<link>
+			<name>App/demo_waveshare.h</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/App/demo_waveshare.h</locationURI>
 		</link>
 		<link>
 			<name>Core/startup_stm32h743zitx.s</name>
@@ -1848,7 +1873,7 @@
 	</linkedResources>
 	<filteredResources>
 		<filter>
-			<id>1772858837176</id>
+			<id>1772918705831</id>
 			<name></name>
 			<type>10</type>
 			<matcher>
@@ -1857,12 +1882,21 @@
 			</matcher>
 		</filter>
 		<filter>
-			<id>1772858837179</id>
+			<id>1772918705838</id>
 			<name></name>
 			<type>10</type>
 			<matcher>
 				<id>org.eclipse.ui.ide.multiFilter</id>
 				<arguments>1.0-name-matches-true-false-Doc</arguments>
+			</matcher>
+		</filter>
+		<filter>
+			<id>1772918705846</id>
+			<name></name>
+			<type>10</type>
+			<matcher>
+				<id>org.eclipse.ui.ide.multiFilter</id>
+				<arguments>1.0-name-matches-true-false-IOC</arguments>
 			</matcher>
 		</filter>
 	</filteredResources>

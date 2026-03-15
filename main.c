@@ -1,14 +1,28 @@
 /**
   ******************************************************************************
-  * @file    GPIO/GPIO_EXTI/Src/main.c
-  * @author  MCD Application Team
-  * @brief   This example describes how to configure and use GPIOs through
-  *          the STM32H7xx HAL API.
+  * @file    main.c
+  * @author  x
+  * @brief   This example describes how to configure and use GPIOs through the STM32H7xx HAL API.
   ******************************************************************************
-  * @attention
   *
-  * Copyright (c) 2017 STMicroelectronics.
-  * All rights reserved.
+  * @section 	Opens
+  * 	Style
+  * 	Pinout
+  * 	Demo Map
+  * 	Demo Segment
+  * 	Function Headers
+  * 	File Headers
+  * 	Modularization
+  * 	...!
+  * 	gpio api
+  * 	gpio api demo
+  * 	...
+  * 	�2025 update
+  * 	...
+  * 	drop stm32h7xx_nucleo.c
+  * 	reloc STM32H743ZITX_FLASH.ld
+  * 	reloc stm32_gpio Debug.launch
+  * 	switch EXTI demo to a button
   *
   * This software is licensed under terms that can be found in the LICENSE file
   * in the root directory of this software component.
@@ -29,17 +43,38 @@
   */
 
 /* Private typedef -----------------------------------------------------------*/
+
+
 /* Private define ------------------------------------------------------------*/
+
+//Timing
+#define DEMO_DELAY_MS		(125)			/* @note original demo value of '5' needed debouncing */
+
+
 /* Private macro -------------------------------------------------------------*/
+
+
 /* Private variables ---------------------------------------------------------*/
+
 __IO uint32_t ButtonState = 0;
 
+
 /* Private function prototypes -----------------------------------------------*/
+
+
 static void MPU_Config(void);
 static void SystemClock_Config(void);
+
+//Interrupts
 static void EXTI15_10_IRQHandler_Config(void);
+
+//Cach
 static void CPU_CACHE_Enable(void);
+
+//Error Handling
 static void Error_Handler(void);
+
+
 /* Private functions ---------------------------------------------------------*/
 
 /**
@@ -56,11 +91,10 @@ int main(void)
   CPU_CACHE_Enable();
 
   /* STM32H7xx HAL library initialization:
-       - Systick timer is configured by default as source of time base, but user
-         can eventually implement his proper time base source (a general purpose
-         timer for example or other time source), keeping in mind that Time base
-         duration should be kept 1ms since PPP_TIMEOUT_VALUEs are defined and
-         handled in milliseconds basis.
+       - Systick timer is configured by default as source of time base, but user can eventually
+         implement his proper time base source (a general purpose timer for example or other time
+         source), so that the Time base duration should be kept 1ms since PPP_TIMEOUT_VALUEs are
+         defined and handled in milliseconds basis.
        - Set NVIC Group Priority to 4
        - Low Level Initialization
      */
@@ -75,17 +109,22 @@ int main(void)
   /* -2- Configure EXTI15_10 (connected to PC.13 pin) in interrupt mode */
   EXTI15_10_IRQHandler_Config();
 
-  /* Infinite loop */
-  while (1)
-  {
-    if(ButtonState != 0)
-    {
-     /* Toggle LED1 */
-      BSP_LED_Toggle(LED1);
-      ButtonState = 0;
-      HAL_Delay(5); /* to avoid bounce when button pressed */
-    }
-  }
+	//Demo
+	for(;;) {
+
+		//Check
+		if(ButtonState != 0) {
+
+			//Update
+			BSP_LED_Toggle(LED1);
+
+			//Reset
+			ButtonState = 0;
+
+			//Debounce
+			HAL_Delay(DEMO_DELAY_MS); 				/* to avoid bounce when button pressed 		  */
+		}
+	}
 }
 
 /**
@@ -123,20 +162,28 @@ static void Error_Handler(void)
   *            Flash Latency(WS)              = 4
   * @param  None
   * @retval None
+  *
+  * @section 	Opens
+  * 	OSC_CONFIG_WORKS_FOR_THIS_DEMO_BOARD
   */
 static void SystemClock_Config(void)
 {
+#ifdef OSC_CONFIG_WORKS_FOR_THIS_DEMO_BOARD
   RCC_ClkInitTypeDef RCC_ClkInitStruct;
   RCC_OscInitTypeDef RCC_OscInitStruct;
+#endif
   HAL_StatusTypeDef ret = HAL_OK;
+
   while ((PWR->CSR1 & PWR_CSR1_ACTVOSRDY) == 0U) {}
-  /* The voltage scaling allows optimizing the power consumption when the device is
-     clocked below the maximum system frequency, to update the voltage scaling value
-     regarding system frequency refer to product datasheet.  */
+
+  /* The voltage scaling allows optimizing the power consumption when the device is clocked below
+   * the maximum system frequency, to update the voltage scaling value regarding system frequency
+   * refer to product datasheet.  */
   __HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE1);
 
   while(!__HAL_PWR_GET_FLAG(PWR_FLAG_VOSRDY)) {}
 
+#ifdef OSC_CONFIG_WORKS_FOR_THIS_DEMO_BOARD
   /* Enable HSE Oscillator and activate PLL with HSE as source */
   RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSE;
   RCC_OscInitStruct.HSEState = RCC_HSE_BYPASS;
@@ -154,12 +201,18 @@ static void SystemClock_Config(void)
 
   RCC_OscInitStruct.PLL.PLLVCOSEL = RCC_PLL1VCOWIDE;
   RCC_OscInitStruct.PLL.PLLRGE = RCC_PLL1VCIRANGE_1;
+
   ret = HAL_RCC_OscConfig(&RCC_OscInitStruct);
+#else
+  ret = HAL_OK;
+#endif
+
   if(ret != HAL_OK)
   {
     Error_Handler();
   }
 
+#ifdef OSC_CONFIG_WORKS_FOR_THIS_DEMO_BOARD
 /* Select PLL as system clock source and configure  bus clocks dividers */
   RCC_ClkInitStruct.ClockType = (RCC_CLOCKTYPE_SYSCLK | RCC_CLOCKTYPE_HCLK | RCC_CLOCKTYPE_D1PCLK1 | RCC_CLOCKTYPE_PCLK1 | \
                                  RCC_CLOCKTYPE_PCLK2  | RCC_CLOCKTYPE_D3PCLK1);
@@ -171,7 +224,12 @@ static void SystemClock_Config(void)
   RCC_ClkInitStruct.APB1CLKDivider = RCC_APB1_DIV2;
   RCC_ClkInitStruct.APB2CLKDivider = RCC_APB2_DIV2;
   RCC_ClkInitStruct.APB4CLKDivider = RCC_APB4_DIV2;
+
   ret = HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_4);
+#else
+  ret = HAL_OK;
+#endif
+
   if(ret != HAL_OK)
   {
     Error_Handler();
